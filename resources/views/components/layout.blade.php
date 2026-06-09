@@ -6,6 +6,12 @@
 <html>
     <head>
         <title>{{$title}}</title>
+        <style>
+            .max-w-400 {
+                max-width: 400px;
+                margin: auto;
+            }
+        </style>
     </head>
     <body>
         <nav>
