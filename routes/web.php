@@ -1,20 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\UserController;
 
-Route::view("/", "welcome");
+Route::get("/", function () {
+    $ideas = session()->get("ideas", []);
+    return view("index", ["ideas" => $ideas]);
+});
 
-Route::view("/about", "about");
+Route::post("/idea", function () {
+    $idea = request("idea");
+    session()->push("ideas", $idea);    
+    return redirect("/");
+});
 
-Route::view("/contact", "contact");
-
-Route::view("/welcome", "welcome");
-
-Route::view("/pass-data", "index", ["greeting" => "Hello there!", "person" => request("name") ]);
-
-Route::view("/register", "register");
-
-Route::post("/register", [UserController::class, "store_register"]);
-Route::view("/dashboard", "dashboard");
+Route::get("/delete-ideas", function () {
+    session()->forget("ideas");
+    return redirect("/");
+});
